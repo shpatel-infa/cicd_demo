@@ -1,0 +1,147 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>kgbdoPVm5Y6tMFy-gt-23220309-2020-02-21T21:17:38.176Z::tf.xml</types1:EntryId>
+      <types1:Name>Taskflow1</types1:Name>
+      <types1:MimeType>application/xml+taskflow</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>shpatel@informatica.com</types1:CreatedBy>
+      <types1:CreationDate>2020-02-21T21:17:38Z</types1:CreationDate>
+      <types1:ModifiedBy>shpatel@informatica.com</types1:ModifiedBy>
+      <types1:ModificationDate>2020-03-04T19:31:52Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>shpatel@informatica.com</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-21T21:31:59Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/tf.Taskflow1/Taskflow1.tf.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <taskflow xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                   xmlns:list="urn:activevos:spi:list:functions"
+                   displayName="Taskflow1"
+                   name="Taskflow1"
+                   overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="SQLServer to Oracle" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:MappingTask-JSON-NewLine-POC</option>
+                  </options>
+               </field>
+               <field description="" name="Wait30Secs" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:INFA-commandTask</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k6wocufj" targetId="k6wocug4"/>
+               </start>
+               <eventContainer id="k6wocug4">
+                  <service id="k6wocufi">
+                     <title>SQLServer to Oracle</title>
+                     <serviceName>ICSExecuteDataTask</serviceName>
+                     <serviceGUID/>
+                     <serviceInput>
+                        <parameter name="Wait for Task to Complete" source="constant" updatable="true">true</parameter>
+                        <parameter name="Max Wait" source="constant" updatable="true">86400</parameter>
+                        <parameter name="Task Name" source="constant" updatable="true">MappingTask_JSON_NewLine_POC</parameter>
+                        <parameter name="GUID" source="constant" updatable="true">5cNZVgJAhAGf9eZ7YnLwCE</parameter>
+                        <parameter name="Task Type" source="constant" updatable="true">MCT</parameter>
+                        <parameter name="Has Inout Parameters" source="constant" updatable="true">true</parameter>
+                        <parameter name="taskField" source="nested">
+                           <operation source="field" to="MappingTask-JSON-NewLine-POC">temp.SQLServer to Oracle</operation>
+                        </parameter>
+                     </serviceInput>
+                     <serviceOutput>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Object_Name">Object Name</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Run_Id">Run Id</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Log_Id">Log Id</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Task_Id">Task Id</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Task_Status">Task Status</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Success_Source_Rows">Success Source Rows</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Failed_Source_Rows">Failed Source Rows</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Success_Target_Rows">Success Target Rows</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Failed_Target_Rows">Failed Target Rows</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Start_Time">Start Time</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/End_Time">End Time</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/output/Error_Message">Error Message</operation>
+                        <operation source="field" to="temp.SQLServer to Oracle/inout/Param_JSON">Param_JSON</operation>
+                     </serviceOutput>
+                  </service>
+                  <link id="k7dpu798" targetId="k7dpu797"/>
+                  <events>
+                     <catch faultField="temp.SQLServer to Oracle/fault"
+                            id="k6wocug2"
+                            interrupting="true"
+                            name="error">
+                        <suspend/>
+                     </catch>
+                     <catch faultField="temp.SQLServer to Oracle/fault"
+                            id="k6wocug3"
+                            interrupting="true"
+                            name="warning"/>
+                  </events>
+               </eventContainer>
+               <service id="k7dpu797">
+                  <title>Notification Task 1</title>
+                  <serviceName>emailNotificationService</serviceName>
+                  <serviceGUID/>
+                  <serviceInput>
+                     <parameter name="Email To" source="constant">shpatel@informatica.com</parameter>
+                     <parameter name="Email Cc" source="constant"/>
+                     <parameter name="Email Subject" source="constant"/>
+                     <parameter name="Email Content Type" source="constant">text</parameter>
+                     <parameter name="Email Body" source="constant"/>
+                  </serviceInput>
+                  <serviceOutput/>
+                  <link id="k7dpu799" targetId="k6wocuhp"/>
+               </service>
+               <jumpTo id="k6wocuhp">
+                  <link id="k6wocuhq" targetId="value-not-set"/>
+               </jumpTo>
+            </flow>
+            <dependencies>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="MappingTask-JSON-NewLine-POC"
+                              isByCopy="true"
+                              name="MappingTask-JSON-NewLine-POC">
+                  <description/>
+                  <tags/>
+                  <detail>
+                     <field label="InOut Parameters" name="inout" type="reference"/>
+                     <field label="Output Parameters" name="output" type="reference"/>
+                     <field label="Fault" name="fault" type="reference"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="INFA-commandTask"
+                              isByCopy="true"
+                              name="INFA-commandTask">
+                  <description>This process object represents a taskflow specific command task output field details.</description>
+                  <tags/>
+                  <detail>
+                     <field label="Output Parameters" name="output" type="reference"/>
+                     <field label="Fault" name="fault" type="reference"/>
+                  </detail>
+               </processObject>
+            </dependencies>
+         </taskflow>
+      </types1:Entry>
+      <types1:GUID>5oRzNcOwokah4b2ayuKKcN</types1:GUID>
+      <types1:DisplayName>Taskflow1</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-03-11T20:55:21.854Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
